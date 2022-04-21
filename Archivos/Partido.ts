@@ -8,6 +8,8 @@ export class Partido {
     public equipoVisitante: Equipo;
     public finalizar: boolean;
     public partidos: Partido[] = [];
+    public ArbitrosPartidos: number;
+    public ArbitrosVar: number;
 
     constructor() {
     }
@@ -151,6 +153,26 @@ export class Partido {
         }
         else {
             return 0;
+        }
+    }
+
+    public creacionPartidosConArbitros(pNum: Number, pGrupo: Grupo, pLocal: Equipo, pVisitante: Equipo, pArbitrosPartidos: number, pArbitrosVar: number) {
+        if (pLocal != pVisitante) {
+            for (let i = 0; i < 4; i++) {
+                if (pGrupo.Equipos[i].getNombre() == pLocal.getNombre()) {
+                    for (let j = 0; j < 4; j++) {
+                        if (pGrupo.Equipos[j].getNombre() == pVisitante.getNombre()) {
+                            this.numPartido = pNum;
+                            this.grupo = pGrupo;
+                            this.equipoLocal = pLocal;
+                            this.equipoVisitante = pVisitante;
+                            this.finalizar = false;
+                            this.ArbitrosPartidos = pArbitrosPartidos;
+                            this.ArbitrosVar = pArbitrosVar;
+                        }
+                    }
+                }
+            }
         }
     }
 }
