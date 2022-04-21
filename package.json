@@ -259,8 +259,9 @@
     "yargs-parser": "^20.2.9"
   },
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
+  "test": "jest",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sebadiko/TP1.git"
