@@ -744,3 +744,12 @@ test('901_Cuando_Partidos_Deberia_DevolverLosPartidosDeFinal', () => {
     man.crearSemi();
     expect.arrayContaining(man.crearFinal());
 });
+
+test('902_Cuando_Partidos_Deberia_DevolverLosPartidosDeFinal', () => {
+    const man = new Manager("Manager1");
+    man.generargrupo();
+    man.crearOctavos();
+    man.crearCuartos();
+    man.crearSemi();
+    expect.arrayContaining(man.crearFinal());
+});
