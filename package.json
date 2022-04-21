@@ -264,13 +264,13 @@
   "test": "jest",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sebadiko/TP1.git"
+    "url": "git+https://github.com/sebadiko/TP1-Jones-Monzon-Dikowiec.git"
   },
   "author": "Jones, Dikowiec, Monzon",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sebadiko/TP1/issues"
+    "url": "https://github.com/sebadiko/TP1-Jones-Monzon-Dikowiec/issues"
   },
-  "homepage": "https://github.com/sebadiko/TP1#readme",
-  "description": ""
+  "homepage": "https://github.com/sebadiko/TP1-Jones-Monzon-Dikowiec#readme",
+  "description": "![Test](https://github.com/sebadiko/TP1-Jones-Monzon-Dikowiec/actions/workflows/node.js.yml/badge.svg)"
 }
