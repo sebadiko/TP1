@@ -105,6 +105,7 @@ test('206_Cuando_SePidePartidos_Deberia_DevolverListadoDeTodosLosPartidos', () =
     g.AgregarEquipo("Argentina", "AR");
     g.AgregarEquipo("Mexico", "MX");
     g.AgregarEquipo("Arabia Saudita", "AS");
+    
     g.AgregarEquipo("Polonia", "PO");
 
     const local1 = new Equipo("Argentina", "AR");
