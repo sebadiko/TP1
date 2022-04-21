@@ -745,11 +745,19 @@ test('901_Cuando_Partidos_Deberia_DevolverLosPartidosDeFinal', () => {
     expect.arrayContaining(man.crearFinal());
 });
 
-test('902_Cuando_Partidos_Deberia_DevolverLosPartidosDeFinal', () => {
-    const man = new Manager("Manager1");
-    man.generargrupo();
-    man.crearOctavos();
-    man.crearCuartos();
-    man.crearSemi();
-    expect.arrayContaining(man.crearFinal());
+test('16_Cuando_Partidos_Deberia_Empezar_Con_3JuecesPartido_3JuecesVar', () => {
+    const g = new Grupo("C");
+    g.AgregarEquipo("Argentina", "AR");
+    g.AgregarEquipo("Mexico", "MX");
+    g.AgregarEquipo("Arabia Saudita", "AS");
+    g.AgregarEquipo("Polonia", "PO");
+
+    const local = new Equipo("Argentina", "AR");
+    const visitante = new Equipo("Mexico", "MX");
+
+    const partido = new Partido();
+    partido.creacionPartidosConArbitros(1, g, local, visitante, 3, 3);
+
+    expect(partido.ArbitrosPartidos.valueOf(3);
+    expect(partido.ArbitrosVar.valueOf(3);
 });
