@@ -132,7 +132,7 @@ def menu():
                     break
             while True:
                 try:
-                    maximaIteraciones= int(input("Ingrese numero maximo de iteraciones"))
+                    maximaIteraciones= int(input("Ingrese numero maximo de iteraciones: "))
                 except:
                     continue
                 else:
@@ -276,3 +276,4 @@ def Aitken(p0, p1, p2):
 
 
 menu()
+
