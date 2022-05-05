@@ -1,0 +1,278 @@
+import numpy as np
+import os
+# Libreria de Calculo numerico para un gran volumen de datos
+from numpy.lib.shape_base import split
+
+def menu():
+    os.system("CLS")
+    print("METODOS DE CALCULO")
+    print(" ---Metodos---")
+    print(" 1- Metodo de SOR")
+    print(" 2- Metodo de Potencia Inversa + Aitken")
+    print(" ---Ejemplos de Metodo SOR(Chapra)---")
+    print(" 3- Ejercicio Nº11.8: Metodo SOR")
+    print(" 4- Ejercicio Nº11.11: Metodo SOR (Con relajacion y sin relajacion)")
+    print(" 5- Ejercicio Nº11.12: Metodo SOR (Con relajacion y sin relajacion)")
+    print(" ---Ejemplos de Metodo Potencia Inversa(Burden)---")
+    print(" 6- Ejercicio Nº1.e: Metodo de Potencia Inversa(Tres primeras Iteraciones)")
+    print(" 7- Ejercicio Nº3.f: Metodo de Potencia Inversa(Tres primeras Iteraciones)")
+    print(" ---Salida---")
+    print(" 8- Salir")
+    try:
+        numeroDeMetodo = int(input("Elija una opcion (1-8): "))
+    except ValueError:  # En caso de error vuelve al menu
+        menu()
+    while True:  # intentar
+        if numeroDeMetodo == 1:
+            os.system("CLS")
+            print("Opcion 1: metodo SOR")
+            while True:
+                try:
+                    ordenMatrizCoeficinte = int(
+                        input("Orden de la matriz de coeficiente: "))
+                except:
+                    continue
+                else:
+                    break
+            print("Ingrese datos de la matriz de coeficientes")
+            matrizCoeficiente = []
+            for i in range(ordenMatrizCoeficinte):
+                while True:
+                    try:
+                        matriz = [float(x) for x in input(
+                            "Fila {0}: ".format(i+1)).split()]
+                    except:
+                        continue
+                    else:
+                        if(len(matriz) == ordenMatrizCoeficinte):
+                            matrizCoeficiente.append(matriz)
+                            break
+                        else:
+                            continue
+            print("Ingresar datos de la matriz de terminos independientes")
+            while True:
+                try:
+                    matrizIndependiente = [float(x) for x in input(
+                        "Terminos independientes: ").split()]
+                except:
+                    continue
+                else:
+                    if(len(matrizIndependiente) == ordenMatrizCoeficinte):
+                        break
+                    else:
+                        continue
+            while True:
+                try:
+                    w = float(input("Coeficiente de Relajacion: "))
+                except:
+                    continue
+                else:
+                    break
+            while True:
+                try:
+                    toleranciaAceptada = float(
+                        input("Ingresar numero de Tolerancia: "))
+                except:
+                    continue
+                else:
+                    break
+            while True:
+                try:
+                    iteracionesMaximas = int(
+                        input("Ingrese numero maximo de iteraciones: "))
+                except:
+                    continue
+                else:
+                    break
+            metodoSOR(ordenMatrizCoeficinte, matrizCoeficiente, matrizIndependiente, np.zeros(
+                ordenMatrizCoeficinte), w, toleranciaAceptada, iteracionesMaximas)
+            atras()
+        elif numeroDeMetodo==2:
+            os.system("CLS")
+            print("2- Metodo de Potencia Inversa + Aitken")
+            while True:
+                try:
+                    ordenMatrizInversa= int(input("Ingrese orden de la matriz de coeficientes: "))
+                except:
+                    continue
+                else:
+                    break
+            print("Ingrese datos de la matriz de coeficientes: ")
+            matrizI=[]
+            for i in range(ordenMatrizInversa):
+                while True:
+                    try:
+                        matriz = [float(x) for x in input("Fila {0}: ".format(i+1)).split()]
+                    except:
+                        continue
+                    else:
+                        if(len(matriz)==ordenMatrizInversa):
+                            matrizI.append(matriz)
+                            break
+                        else:
+                            continue
+            print("Ingrese datos del autovector inicial separtados por espacios")
+            while True:
+                try:
+                    vector= [float(x) for x in input("AutoVector: ").split()]
+                except:
+                    continue
+                else:
+                    if(len(vector)== ordenMatrizInversa):
+                        matrizI.append(matriz)
+                        break
+                    else:
+                        continue
+            while True:
+                try:
+                    tolerancia=float(input("Ingrese Tolerancia: "))
+                except:
+                    continue
+                else:
+                    break
+            while True:
+                try:
+                    maximaIteraciones= int(input("Ingrese numero maximo de iteraciones"))
+                except:
+                    continue
+                else:
+                    break
+            metodoPIn(ordenMatrizInversa, np.array(matrizI), np.array(vector), tolerancia, maximaIteraciones)
+            atras()
+        elif numeroDeMetodo==3:
+            os.system("CLS")
+            print("3- Ejercicio Nº11.8: Metodo SOR")
+            metodoSOR(3, [[15, -3, -1], [-3, 18, -6], [-4, -1, 12]], [3800, 1200, 2350], np.zeros(3), 1.2, 1e-3, 100)
+            atras()
+        elif numeroDeMetodo==4:
+            os.system("CLS")
+            print("4- Ejercicio Nº11.11: Metodo SOR")
+            print("Metodo SOR con relajacion 0.95")
+            metodoSOR(3, [[-3, 1, -12], [6, -1, -1], [6, 9, 1]], [50, 3, 40], np.zeros(3), 0.95, 1e-3, 100)
+            print("Metodo SOR sin relajacion")
+            metodoSOR(3, [[-3, 1, -12], [6, -1, -1], [6, 9, 1]], [50, 3, 40], np.zeros(3), 0, 1e-3, 100)
+            atras()
+        elif numeroDeMetodo==5:
+            os.system("CLS")
+            print("5- Ejercicio Nº11.12: Metodo SOR")
+            print("Metodo SOR con relajacion 1.2")
+            metodoSOR(3, [[2, -6, -1], [-3, -1, 7], [-8, 1, -2]], [-38, -34, -20], np.zeros(3), 1.2, 1e-3, 100)
+            print("Metodo SOR sin relajacion")
+            metodoSOR(3, [[2, -6, -1], [-3, -1, 7], [-8, 1, -2]], [-38, -34, -20], np.zeros(3), 0, 1e-3, 100)
+            atras()
+        elif numeroDeMetodo==6:
+            os.system("CLS")
+            print("6- Ejercicio Nº1.e: Metodo de Potencia Inversa(Tres primeras Iteraciones)")
+            metodoPIn(4, np.array([[5., -2., -1/2., 3/2.], [-2., 5., 3/2., -1/2.], [-1/2., 3/2., 5., -2.], [3/2., -1/2., -2., 5.]]), np.array([1., 1., 0., -3.]), 1e-3, 3)
+            atras()
+        elif numeroDeMetodo==7:
+            os.system("CLS")
+            print("7- Ejercicio Nº3.f: Metodo de Potencia Inversa(Tres primeras Iteraciones)")
+            metodoPIn(4, np.array([[5., -2., -1/2., 3/2.], [-2., 5., 3/2., -1/2.], [-1/2., 3/2., 5., -2.], [3/2., -1/2., -2., 5.]]), np.array([1., 1., 0., -3.]), 1e-3, 3)
+            atras()
+        else:
+            menu()
+    
+
+
+
+def atras():
+    input(">> Presione una tecla para volver al menu <<")
+    menu()
+
+# Metodo SOR
+def metodoSOR(n, A, b, x, w, tol, kmax):
+    #Valores iniciales
+    #n                    #Orden de la matriz de coeficientes (N)
+    #A                    #Datos de la matriz de coeficientes
+    #b                    #Datos de la matriz de terminos independientes(Resultados)
+    #x                    #Vector inicial de incognitas(Vector que determina la cantidad de incognitas)
+    #w                    #Coeficiente de relajacion (w) (x<1 Gauss-Sidel/ 1<x<2 Esta sobrerelajado / x>2 el metodo iterativo diverge)
+    #tol                  #Valor de la tolerancia aceptada
+    #kmax                 #Número máximo de iteraciones
+    error = 100000        #Valor inicial de la norma
+    x1 = np.copy(x)       #Vector auxiliar de x
+    k = 0                 #Contador inicial de iteraciones
+    error1 = [0]
+
+    #Algoritmo para el calculo SOR
+
+    while error > tol:
+        if(k > kmax):
+            print('Error >>> Numero de Iteraciones Permitidas SUPERADAS!!!')
+            break
+        print("Iteración: ", k)
+        for i in range(n):
+            sumatoria = 0
+            for j in range(n):
+                if i != j:
+                    sumatoria += (A[i][j] * x[j])
+            x[i] = (w * ((b[i] - sumatoria) / A[i][i])) + (1 - w) * x[i]
+            print("x(", i,"): ", x[i])
+        error = np.linalg.norm(x - x1)      #Cálculo de la norma vectorial
+        error1.append(error)                #Se genera el vector error para ser graficado
+        x1 = np.copy(x)                     #Actualiza vector solución iteración anterior
+        print("  Error: ", error1[k])
+        k += 1
+
+#Metodo Potencia Inversa
+
+def metodoPIn(n, A, x, tol, kmax):
+    #Valores iniciales
+    #n                    #Orden de la matriz de coeficientes (N)
+    #A                    #Datos de la matriz de coeficientes
+    #x                    #AutoVector inicial considerado
+    #tol                  #Valor de la tolerancia aceptada
+    #kmax                 #Número máximo de iteraciones
+    arrayAitken = []      #Array para almacenar los autovalores a usar en Aitken
+    I = np.eye(n)         #Matriz Identidad
+
+    #Header
+    print("╔" + "═"*73 + "╗")
+    print("║{0:^3} - {1:^37} - {2:^12} - {3:^12}║".format('i', 'AutoVector', 'AutoValor', 'Aitken'))
+    print("╠" + "═"*73 + "╣")
+
+    #Algoritmo Potencia Inversa
+    k = 0
+    q = np.dot(x, np.dot(A, x)) / np.dot(x, x)
+    p = find_p(x)
+    error = 1
+    x = x / x[p]
+    while error > tol:
+        if(k > kmax):
+            print('║ Error >>> Numero de Iteraciones Permitidas SUPERADAS!!!                          ║')
+            break
+        y = np.linalg.solve(A - q * I, x)       
+        μ = y[p]      
+        p = find_p(y)     
+        error = np.linalg.norm(x - y / y[p],  np.inf)
+        x = y / y[p]
+        μ = (1 / μ) + q 
+        #Al tener mas de 2 valores guardados en el Array de Aitken y uno mas en μ recientemente calculado se procede a usar el acelerdor de Aitken.
+        if(len(arrayAitken)>1):
+            #se calcula el aitken con los valores guardados + el recientemente calculado
+            #se guarda el autovalor en el array de aitken para ser usado a futuro.
+            #se imprime numero de iteracion, vector, aproximacion y el aitken
+            aitkenResult = Aitken(arrayAitken[-2], arrayAitken[-1], μ)
+            print(f"║{k:03d} - [{x[0]: 9.8f} {x[1]: 9.8f} {x[2]: 9.8f}] - {μ: >12.8f} - {aitkenResult: >12.8f}║")
+            arrayAitken.clear()
+        else:
+            #se guarda el autovalor en el array de aitken para ser usado a futuro.
+            #se imprime numero de iteracion, vector y aproximacion
+            arrayAitken.append(μ)
+            print(f"║{k:03d} - [{x[0]: 9.8f} {x[1]: 9.8f} {x[2]: 9.8f}] - {μ: >12.8f} - " + ' '*12 +  "║")
+        k += 1
+    print("╚" + "═"*73 + "╝")
+
+def find_p(x):
+    #Se calcula P
+    return np.argwhere(np.isclose(np.abs(x), np.linalg.norm(x, np.inf))).min()
+
+#Algoritmo de Aitken
+
+def Aitken(p0, p1, p2):
+    return p0-((p1-p0)**2)/(p2-2*p1+p0)
+
+
+
+menu()
